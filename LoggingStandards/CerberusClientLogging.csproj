@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>CerberusLogging</Title>
+    <Authors>$(AssemblyName), Thomas Nelson</Authors>
+    <Description>A logging standard tool that defines what needs to be logged and sends logs to an external source that can easily be used for processing.  This tool is designed to remove the overhead of logging scope, reduce processing overhead through async, and create a standard of what to log for the orgnization.</Description>
+    <PackageProjectUrl>https://github.com/Zeroshi/LoggingStandardTool</PackageProjectUrl>
+    <PackageIcon>cerebus-centered.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Zeroshi/LoggingStandardTool</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>C#; logging; Cerberus</PackageTags>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Core" Version="1.32.0" />
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.15.0" />
+    <PackageReference Include="Azure.Storage.Common" Version="12.16.0-beta.1" />
+    <PackageReference Include="Azure.Storage.Queues" Version="12.15.0-beta.1" />
+    <PackageReference Include="cerberus-logger-interface" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0-preview.4.23259.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-preview.4.23259.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0-preview.4.23259.5" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.Diagnostics.EventLog" Version="8.0.0-preview.4.23259.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Classes\AzureApplicationInsights\" />
+    <Folder Include="Classes\Enums\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\thoma\OneDrive\!twitch\WakingForestRemake\High Res Images\cerebus-centered.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
