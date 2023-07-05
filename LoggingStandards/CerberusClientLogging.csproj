@@ -40,7 +40,7 @@ Use Cerberus Client Logging to establish secure, standardized logging practices 
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.15.0" />
     <PackageReference Include="Azure.Storage.Common" Version="12.16.0-beta.1" />
     <PackageReference Include="Azure.Storage.Queues" Version="12.15.0-beta.1" />
-    <PackageReference Include="cerberus-logger-interface" Version="1.0.1" />
+    <PackageReference Include="cerberus-logger-interface" Version="1.0.*" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0-preview.4.23259.5" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-preview.4.23259.5" />
     <PackageReference Include="Moq" Version="4.18.4" />
