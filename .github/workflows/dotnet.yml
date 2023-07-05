@@ -15,7 +15,7 @@ jobs:
 
       - name: Increment version
         id: increment-version
-        run: echo "::set-output name=version::1.0.$(date +'%Y%m%d%H%M%S')"
+        run: echo "::set-output name=version::1.0.${{ github.run_number }}"
 
       - name: Update version in csproj
         run: |
