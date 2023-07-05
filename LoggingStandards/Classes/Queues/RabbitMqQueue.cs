@@ -22,7 +22,8 @@ namespace CerberusLogging.Classes.Queues
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            _channel.QueueDeclare(queue: _queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueDeclare(queue: _queueName, durable: true, exclusive: false, autoDelete: false,
+                arguments: null);
         }
 
         public async Task<bool> SendMessageAsync(string message, Guid messageId)
@@ -30,7 +31,8 @@ namespace CerberusLogging.Classes.Queues
             try
             {
                 var body = Encoding.UTF8.GetBytes(message);
-                await Task.Run(() => _channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body));
+                await Task.Run(() =>
+                    _channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body));
 
                 Console.WriteLine($@"{messageId} was sent");
                 return true;

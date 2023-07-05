@@ -1,45 +1,61 @@
-﻿using CerberusLogging.Classes;
-using CerberusLogging.Classes.Enums;
-using CerberusLogging.Interfaces;
-using Microsoft.Extensions.Logging;
+﻿using CerberusLogging.Classes.ClassTypes;
+using CerberusLogging.Interfaces.Objects;
+using CerberusLogging.Interfaces.SendMessage;
 using Moq;
+using Newtonsoft.Json;
 using NUnit.Framework;
+using RabbitMQ.Client;
+using System;
+using System.Text;
+using System.Threading.Tasks;
+using CerberusLogging.Classes.Queues;
 
-namespace UnitTests
+namespace CerberusLogging.Classes.Tests
 {
     [TestFixture]
-    public class LoggingTests
+    public class ConvertToJsonTests
     {
-        private Logging _logger;
-        private Mock<Logging> _mockLogger;
+        private ConvertToJson _convertToJson;
+        private Mock<IConnection> _mockConnection;
+        private Mock<IModel> _mockChannel;
 
         [SetUp]
-        public void SetUp()
+        public void Setup()
         {
-            _mockLogger = new Mock<Logging>("TestApp", LoggingDestination.Queue.Azure_Queue, LogLevel.Error,
-                "connectionString", "TestQueueName");
-            _logger = _mockLogger.Object;
+            _convertToJson = new ConvertToJson();
+
+            _mockConnection = new Mock<IConnection>();
+            _mockChannel = new Mock<IModel>();
         }
 
         [Test]
-        public async void SendApplicationLogAsync_ValidApplicationMessage_LogInfoCreatedWithApplicationMessage()
+        public void ConvertMessageToJson_ValidEntity_ReturnsJsonString()
         {
             // Arrange
+            var log = new EntityBase(); // Replace with your concrete implementation of IEntityBase
 
-            #region Metod to verify
+            // Act
+            var result = _convertToJson.ConvertMessageToJson(log);
 
-            //_mockLogger.Verify(
-            //    x => x.SendApplicationLogAsync(
-            //        LogLevel.Information,
-            //        It.IsAny<EventId>(),
-            //        It.IsAny<It.IsAnyType>(),
-            //        It.Is<Exception>(ex => ex == null),
-            //        It.IsAny<Func<It.IsAnyType, Exception, string>>()
-            //    ),
-            //    Times.Once()
-            //);
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotEmpty(result);
+            Assert.That(() => JsonConvert.DeserializeObject<EntityBase>(result), Throws.Nothing);
+        }
 
-            #endregion
+        [Test]
+        public void ConvertApplicationMessageToJson_ValidApplicationEntity_ReturnsJsonString()
+        {
+            // Arrange
+            var log = new ApplicationEntity(); // Replace with your concrete implementation of IApplicationEntity
+
+            // Act
+            var result = _convertToJson.ConvertApplicationMessageToJson(log);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotEmpty(result);
+            Assert.That(() => JsonConvert.DeserializeObject<ApplicationEntity>(result), Throws.Nothing);
         }
     }
 }
