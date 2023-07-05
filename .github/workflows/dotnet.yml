@@ -13,11 +13,11 @@ jobs:
 
       - name: Set version
         id: set-version
-        run: echo "::set-output name=version::1.0.$(date -u +%Y%m%d%H%M%S)"
+        run: echo "::set-output name=version::1.0.$(git rev-parse --short HEAD)"
 
       - name: Update version in csproj
         run: |
-          sed -i 's|<Version>.*</Version>|<Version>${{ steps.set-version.outputs.version }}</Version>|g' ./LoggingStandards/CerberusClientLogging.csproj
+          sed -i 's|<Version>.*</Version>|<Version>${{ steps.set-version.outputs.version }}</Version>|g' ./ICerberusLogging/ICerberusLogging.csproj
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
