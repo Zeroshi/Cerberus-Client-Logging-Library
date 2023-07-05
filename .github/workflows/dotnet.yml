@@ -8,21 +8,18 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.calc-version.outputs.version }}  # Define output for this job
+      version: ${{ steps.increment-version.outputs.version }}  # Define output for this job
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Calculate version
-        id: calc-version
-        uses: julianghionoiu/semver-action@v1
-        with:
-          version-file: './nupkgs/*.nupkg'
-          version-increment: 'patch'
+      - name: Increment version
+        id: increment-version
+        run: echo "::set-output name=version::1.0.$(date +'%Y%m%d%H%M%S')"
 
       - name: Update version in csproj
         run: |
-          sed -i 's|<Version>.*</Version>|<Version>${{ steps.calc-version.outputs.version }}</Version>|g' ./LoggingStandards/CerberusClientLogging.csproj
+          sed -i 's|<Version>.*</Version>|<Version>${{ steps.increment-version.outputs.version }}</Version>|g' ./LoggingStandards/CerberusClientLogging.csproj
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
