@@ -7,17 +7,19 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.calc-version.outputs.version }}  # Define output for this job
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set version
-        id: set-version
-        run: echo "::set-output name=version::1.0.$(git rev-parse --short HEAD)"
+      - name: Calculate version
+        id: calc-version
+        run: echo "::set-output name=version::1.0.${{ github.run_number }}"
 
       - name: Update version in csproj
         run: |
-          sed -i 's|<Version>.*</Version>|<Version>${{ steps.set-version.outputs.version }}</Version>|g' ./ICerberusLogging/ICerberusLogging.csproj
+          sed -i 's|<Version>.*</Version>|<Version>${{ steps.calc-version.outputs.version }}</Version>|g' ./LoggingStandards/CerberusClientLogging.csproj
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
