@@ -25,10 +25,10 @@ Key Features:
 
 Take advantage of Cerberus Client Logging to establish secure and standardized logging practices in your C# projects. Boost your team's productivity and ensure the integrity of your application's logs, all while seamlessly integrating with popular technologies. Begin using Cerberus Client Logging today and experience the power of a comprehensive and versatile logging solution.</Description>
     <PackageProjectUrl>https://github.com/Zeroshi/Cerberus-Client-Logging-Library</PackageProjectUrl>
-    <PackageIcon>cerebus-centered.png</PackageIcon>
+    <PackageIcon></PackageIcon>
     <RepositoryUrl>https://github.com/Zeroshi/Cerberus-Client-Logging-Library</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>C#; logging; Cerberus</PackageTags>
+    <PackageTags>C#; logging; Cerberus;Enterprise;Startup</PackageTags>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackAsTool>False</PackAsTool>
@@ -64,10 +64,6 @@ Take advantage of Cerberus Client Logging to establish secure and standardized l
       <PackagePath>\</PackagePath>
     </None>
     <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="C:\Users\thoma\OneDrive\!twitch\WakingForestRemake\High Res Images\cerebus-centered.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
