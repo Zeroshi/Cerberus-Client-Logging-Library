@@ -1,4 +1,4 @@
-name: .NET CI/CD - Nuget Publish
+name: .NET CI/CD - NuGet Publish
 
 on:
   push:
