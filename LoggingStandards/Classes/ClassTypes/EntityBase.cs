@@ -3,9 +3,8 @@ using CerberusLogging.Interfaces.Objects;
 using Microsoft.Extensions.Logging;
 using static CerberusLogging.Classes.Enums.MetaData;
 
-namespace CerberusLogging.Classes.ClassTypes
+namespace CerberusClientLogging.Classes.ClassTypes
 {
-
     /// <summary>
     /// Metadata concerning the message
     /// </summary>
@@ -21,7 +20,7 @@ namespace CerberusLogging.Classes.ClassTypes
         public string? Note { get; set; }
         public Exception? Error { get; set; }
         public Encryption? Encryption { get; set; }
-        public Enums.MetaData.Environment? Environment { get; set; }
+        public CerberusLogging.Classes.Enums.MetaData.Environment? Environment { get; set; }
         public IdentifiableInformation? IdentifiableInformation { get; set; }
         public string? Payload { get; set; }
     }

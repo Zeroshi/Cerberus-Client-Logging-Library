@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace CerberusLogging.Interfaces.SendMessage
+namespace CerberusClientLogging.Interfaces.SendMessage
 {
     public interface ISendMessage
     {

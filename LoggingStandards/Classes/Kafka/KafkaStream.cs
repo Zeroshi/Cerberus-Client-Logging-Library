@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
-namespace CerberusLogging.Classes.Kafka
+namespace CerberusClientLogging.Classes.Kafka
 {
     internal class StreamSet
     {

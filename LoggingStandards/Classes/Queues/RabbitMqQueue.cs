@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using CerberusLogging.Interfaces.SendMessage;
+using CerberusClientLogging.Interfaces.SendMessage;
 using RabbitMQ.Client;
 
-namespace CerberusLogging.Classes.Queues
+namespace CerberusClientLogging.Classes.Queues
 {
     public class RabbitMqQueue : ISendMessage, IDisposable
     {

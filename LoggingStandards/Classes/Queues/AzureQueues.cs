@@ -2,10 +2,10 @@
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Storage.Queues;
-using CerberusLogging.Interfaces;
-using CerberusLogging.Interfaces.SendMessage;
+using CerberusClientLogging.Interfaces;
+using CerberusClientLogging.Interfaces.SendMessage;
 
-namespace CerberusLogging.Classes.Queues
+namespace CerberusClientLogging.Classes.Queues
 {
     public class AzureQueueStorage : ISendMessage, IQueue
     {
@@ -27,7 +27,6 @@ namespace CerberusLogging.Classes.Queues
 
         public async Task<bool> SendMessageAsync(string payload, Guid messageId)
         {
-
             try
             {
                 // Add the message to the queue
@@ -42,6 +41,5 @@ namespace CerberusLogging.Classes.Queues
                 return false;
             }
         }
-
     }
 }

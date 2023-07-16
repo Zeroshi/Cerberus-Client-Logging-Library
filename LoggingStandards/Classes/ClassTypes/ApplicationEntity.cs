@@ -1,8 +1,7 @@
 ﻿using System;
 using CerberusLogging.Interfaces.Objects;
 
-
-namespace CerberusLogging.Classes.ClassTypes
+namespace CerberusClientLogging.Classes.ClassTypes
 {
     public class ApplicationEntity : IApplicationEntity
     {

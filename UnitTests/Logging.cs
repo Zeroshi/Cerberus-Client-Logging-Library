@@ -1,16 +1,11 @@
-﻿using CerberusLogging.Classes.ClassTypes;
-using CerberusLogging.Interfaces.Objects;
-using CerberusLogging.Interfaces.SendMessage;
+﻿using CerberusClientLogging.Classes;
+using CerberusClientLogging.Classes.ClassTypes;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RabbitMQ.Client;
-using System;
-using System.Text;
-using System.Threading.Tasks;
-using CerberusLogging.Classes.Queues;
 
-namespace CerberusLogging.Classes.Tests
+namespace UnitTests
 {
     [TestFixture]
     public class ConvertToJsonTests

@@ -1,14 +1,8 @@
-﻿using CerberusLogging.Interfaces.SendMessage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CerberusClientLogging.Interfaces.SendMessage;
 
-namespace CerberusLogging.Interfaces
+namespace CerberusClientLogging.Interfaces
 {
     public interface IQueue : ISendMessage
     {
-
     }
 }

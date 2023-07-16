@@ -1,11 +1,8 @@
-﻿using System;
-using CerberusLogging.Interfaces.SendMessage;
-using Microsoft.Extensions.Logging;
+﻿using CerberusClientLogging.Interfaces.SendMessage;
 
-namespace CerberusLogging.Interfaces
+namespace CerberusClientLogging.Interfaces
 {
     public interface IDatabase : ISendMessage
     {
-
     }
 }

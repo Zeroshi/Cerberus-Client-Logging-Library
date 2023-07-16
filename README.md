@@ -43,3 +43,57 @@ The design follows a modular approach, allowing for scalability and flexibility 
 
 Please note that the separate application mentioned in the design is currently in development and will be responsible for processing and storing the logged messages from the queue.
 
+
+### Example `appsettings.json` configuration file:
+
+```json
+{
+  "Logging": {
+    // The name of your application
+    "ApplicationName": "YourApplication",
+
+    // The type of destination for logging (options: "Azure_Queue", "RabbitMq_Queue", "Azure_Service_Bus", "RabbitMq_Topic")
+    "DestinationType": "Azure_Queue",
+
+    // The log level for filtering log messages (options: "Trace", "Debug", "Information", "Warning", "Error", "Critical", "None")
+    "LogLevel": "Information",
+
+    // The connection string for the logging destination (e.g., Azure Queue Storage connection string)
+    "ConnectionString": "your_connection_string",
+
+    // The name of the queue for storing log messages
+    "QueueName": "your_queue_name"
+
+    // Additional configuration options for other destinations or features can be added here
+  }
+}
+```
+
+In this example, you can see the following configuration options:
+
+- `"ApplicationName"`: The name of your application. You should replace `"YourApplication"` with the actual name of your application.
+
+- `"DestinationType"`: The type of destination for logging. You can choose from the following options:
+  - `"Azure_Queue"`: Azure Queue Storage
+  - `"RabbitMq_Queue"`: RabbitMQ Queue
+  - `"Azure_Service_Bus"`: Azure Service Bus
+  - `"RabbitMq_Topic"`: RabbitMQ Topic
+
+- `"LogLevel"`: The log level for filtering log messages. You can choose from the following options:
+  - `"Trace"`
+  - `"Debug"`
+  - `"Information"`
+  - `"Warning"`
+  - `"Error"`
+  - `"Critical"`
+  - `"None"`
+
+- `"ConnectionString"`: The connection string for the logging destination. This should be specific to the destination type you choose.
+
+- `"QueueName"`: The name of the queue for storing log messages. Replace `"your_queue_name"` with the actual name of the queue.
+
+You can add additional configuration options within the `"Logging"` section as per your requirements. These additional options can be specific to other destinations or features that you want to include in your logging library.
+
+Remember to replace the placeholder values (`YourApplication`, `your_connection_string`, `your_queue_name`, etc.) with the actual values relevant to your application and logging configuration.
+```
+

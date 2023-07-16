@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CerberusLogging.Classes.ClassTypes;
+using CerberusClientLogging.Classes.ClassTypes;
+using CerberusClientLogging.Classes.Queues;
+using CerberusClientLogging.Interfaces;
+using CerberusClientLogging.Interfaces.SendMessage;
 using CerberusLogging.Classes.Enums;
-using CerberusLogging.Classes.Queues;
-using CerberusLogging.Interfaces;
 using CerberusLogging.Interfaces.Objects;
-using CerberusLogging.Interfaces.SendMessage;
 using Microsoft.Extensions.Logging;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using static CerberusLogging.Classes.Enums.MetaData;
 
-namespace CerberusLogging.Classes
+namespace CerberusClientLogging.Classes
 {
     public class Logging : IBaseLogging
     {
@@ -35,27 +34,28 @@ namespace CerberusLogging.Classes
                 case LoggingDestination.Queue.Azure_Queue:
                     _targetDestinationTool = new AzureQueueStorage(queueName, connectionString);
                     break;
-                //case LoggingDestination.Queue.RabbitMq_Queue:
-                //    _targetDestinationTool = new RabbitMqQueue(queueName, connectionString);
-                //    break;
-                //case LoggingDestination.Queue.Azure_Service_Bus:
-                //    _targetDestinationTool = new AzureServiceBusQueue(queueName, connectionString);
-                //    break;
+                // case LoggingDestination.Queue.RabbitMq_Queue:
+                //     _targetDestinationTool = new RabbitMqQueue(queueName, connectionString);
+                //     break;
+                // case LoggingDestination.Queue.Azure_Service_Bus:
+                //     _targetDestinationTool = new AzureServiceBusQueue(queueName, connectionString);
+                //     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(queueType), "Invalid queue type.");
             }
         }
 
-        public Logging(string appplicationName, LoggingDestination.Database database, LogLevel logLevel,
+        public Logging(string applicationName, LoggingDestination.Database database, LogLevel logLevel,
             string connectionString)
         {
             _loggingLevel = logLevel;
             _connectionString = connectionString;
-            _applicationName = appplicationName;
+            _applicationName = applicationName;
 
-            //switch for database types
+            // switch for database types
         }
 
-
-        ////Storage Queue with Topics
+        //// Storage Queue with Topics
         //public Logging(LoggingDestination.Type loggingType, LogLevel logLevel, string connectionString, string queueName, string topicName)
         //{
         //    _loggingType = loggingType;
@@ -65,10 +65,7 @@ namespace CerberusLogging.Classes
         //    _topicName = topicName;
         //}
 
-        //database
-
-
-        //api
+        //// API
         //public Logging(LoggingDestination.Type loggingType, LogLevel logLevel, string apiUrl, string apiName, string payloadLocation)
         //{
         //    _loggingType = loggingType;
@@ -107,10 +104,11 @@ namespace CerberusLogging.Classes
 
         public Task<bool> SendApplicationLogAsync(string applicationMessage, string currentMethod, LogLevel logLevel,
             string log,
-            string? applicationName, string? platform, bool? onlyInnerException, string? note, Exception? error,
-            TransactionDestination? transactionDestination, TransactionDestinationTypes? transactionDestinationTypes,
-            Encryption? encryption, MetaData.Environment? environment, IdentifiableInformation? identifiableInformation,
-            string? payload)
+            string? applicationName = null, string? platform = null, bool? onlyInnerException = null,
+            string? note = null, Exception? error = null, TransactionDestination? transactionDestination = null,
+            TransactionDestinationTypes? transactionDestinationTypes = null, Encryption? encryption = null,
+            MetaData.Environment? environment = null, IdentifiableInformation? identifiableInformation = null,
+            string? payload = null)
         {
             return SendApplicationLogAsync(applicationMessage, currentMethod, logLevel, log, platform,
                 onlyInnerException,
@@ -118,9 +116,11 @@ namespace CerberusLogging.Classes
         }
 
         public async Task<bool> SendApplicationLogAsync(string applicationMessage, string currentMethod,
-            LogLevel logLevel, string log, string? platform, bool? onlyInnerException,
-            string? note, Exception? error, Encryption? encryption, Enums.MetaData.Environment? environment,
-            IdentifiableInformation? identifiableInformation, string? payload)
+            LogLevel logLevel, string log, string? platform = null, bool? onlyInnerException = null,
+            string? note = null, Exception? error = null, Encryption? encryption = null,
+            CerberusLogging.Classes.Enums.MetaData.Environment? environment = null,
+            IdentifiableInformation? identifiableInformation = null,
+            string? payload = null)
         {
             var applicationLog = new ApplicationEntity();
             applicationLog.ApplicationMessage = applicationMessage;
@@ -134,7 +134,7 @@ namespace CerberusLogging.Classes
 
         public Task<IEntityBase> CreateBaseLogInformationAsync(LogLevel logLevel, string log, string? platform,
             bool? onlyInnerException, string? note, Exception? error,
-            Encryption? encryption, Enums.MetaData.Environment? environment,
+            Encryption? encryption, CerberusLogging.Classes.Enums.MetaData.Environment? environment,
             IdentifiableInformation? identifiableInformation, string? payload)
         {
             IEntityBase entityBase = new EntityBase();
@@ -155,12 +155,10 @@ namespace CerberusLogging.Classes
 
         private async Task<bool> SendJsonMessageAsync(string jsonMessage)
         {
-            if (_loggingType == LoggingDestination.Type.Azure_Queue || _loggingType ==
-                                                                    LoggingDestination.Type.Azure_Service_Bus
-                                                                    || _loggingType == LoggingDestination.Type
-                                                                        .RabbitMq_Queue
-                                                                    || _loggingType == LoggingDestination.Type
-                                                                        .RabbitMq_Topic)
+            if (_loggingType == LoggingDestination.Type.Azure_Queue ||
+                _loggingType == LoggingDestination.Type.Azure_Service_Bus ||
+                _loggingType == LoggingDestination.Type.RabbitMq_Queue ||
+                _loggingType == LoggingDestination.Type.RabbitMq_Topic)
             {
                 return await Task
                     .FromResult(await SendToQueueSelection("azqueue |" + jsonMessage).ConfigureAwait(false))
@@ -169,11 +167,11 @@ namespace CerberusLogging.Classes
             else if (_loggingType == LoggingDestination.Type.PostgreSql_Database ||
                      _loggingType == LoggingDestination.Type.PostgreSql_Database)
             {
-                //todo: add database connections
+                // todo: add database connections
             }
             else if (_loggingType == LoggingDestination.Type.API_Restful)
             {
-                //todo: add api rest connections
+                // todo: add api rest connections
             }
 
             return false;

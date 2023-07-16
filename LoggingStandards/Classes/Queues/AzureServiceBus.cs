@@ -2,9 +2,9 @@
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
-using CerberusLogging.Interfaces.SendMessage;
+using CerberusClientLogging.Interfaces.SendMessage;
 
-namespace CerberusLogging.Classes.Queues
+namespace CerberusClientLogging.Classes.Queues
 {
     public class AzureServiceBusQueue : ISendMessage, IAsyncDisposable
     {
